@@ -15,7 +15,7 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {employees: [], attributes: [], page: 1, pageSize: 25, links: {}};
+		this.state = {employees: [], attributes: [], page: 1, pageSize: 100, links: {}};
 		this.updatePageSize = this.updatePageSize.bind(this);
 		this.onCreate = this.onCreate.bind(this);
 		this.onUpdate = this.onUpdate.bind(this);
@@ -372,14 +372,12 @@ class EmployeeList extends React.Component {
 				<table>
 					<tbody>
 						<tr>
-						    <th>Mnemonic</th>
 							<th>First Name</th>
 							<th>Last Name</th>
 							<th>Date of birth</th>
 							<th>Nationality</th>
 							<th>Place of birth</th>
 							<th>County of birth</th>
-							<th></th>
 							<th></th>
 						</tr>
 						{employees}
@@ -407,20 +405,16 @@ class Employee extends React.Component {
 	render() {
 		return (
 			<tr>
-			    <td>{this.props.employee.entity.mnem}</td>
-				<td>{this.props.employee.entity.firstName}</td>
 				<td>{this.props.employee.entity.lastName}</td>
-				<td>{this.props.employee.entity.dob}</td>
+				<td>{this.props.employee.entity.firstName}</td>
 				<td>{this.props.employee.entity.nationality}</td>
+				<td>{this.props.employee.entity.dob}</td>
 				<td>{this.props.employee.entity.pob}</td>
 				<td>{this.props.employee.entity.cob}</td>
 				<td>
 					<UpdateDialog employee={this.props.employee}
 								  attributes={this.props.attributes}
 								  onUpdate={this.props.onUpdate}/>
-				</td>
-				<td>
-					<button onClick={this.handleDelete}>Delete</button>
 				</td>
 			</tr>
 		)

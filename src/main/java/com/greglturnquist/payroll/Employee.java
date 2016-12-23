@@ -24,17 +24,18 @@ import javax.persistence.Id;
 import javax.persistence.Version;
 
 /**
- * @author Greg Turnquist
+ * @author Radu Siminiceanu
  */
 // tag::code[]
 @Data
 @Entity
 public class Employee {
 
+	//abayed,Abayateye,Edward,1975-10-06,GHA,Accra,GHA
 	private @Id @GeneratedValue Long id;
 	private String mnem;
-	private String firstName;
 	private String lastName;
+	private String firstName;
 	private String dob;
 	private String nationality;
 	private String pob;
@@ -44,11 +45,11 @@ public class Employee {
 
 	private Employee() {}
 
-	public Employee(String mnem, String firstName, String lastName,
+	public Employee(String mnem, String lastName, String firstName,
 									String dob, String nat, String pob, String cob) {
 		this.mnem = mnem;
-		this.firstName = firstName;
 		this.lastName = lastName;
+		this.firstName = firstName;
 		this.dob = dob;
 		this.nationality = nat;
 		this.pob = pob;

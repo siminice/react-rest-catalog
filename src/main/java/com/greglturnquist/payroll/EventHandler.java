@@ -15,8 +15,6 @@
  */
 package com.greglturnquist.payroll;
 
-import static com.greglturnquist.payroll.WebSocketConfiguration.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterDelete;
@@ -25,6 +23,8 @@ import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
+
+import static com.greglturnquist.payroll.WebSocketConfiguration.MESSAGE_PREFIX;
 
 /**
  * @author Greg Turnquist

@@ -31,6 +31,7 @@ import java.io.InputStreamReader;
 public class DatabaseLoader implements CommandLineRunner {
 
 	private final EmployeeRepository repository;
+	private final String dash = "-";
 
 	@Autowired
 	public DatabaseLoader(EmployeeRepository repository) {
@@ -39,30 +40,23 @@ public class DatabaseLoader implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
-/*
-		this.repository.save(new Employee("Frodo", "Baggins", "ring bearer"));
-		this.repository.save(new Employee("Bilbo", "Baggins", "burglar"));
-		this.repository.save(new Employee("Gandalf", "the Grey", "wizard"));
-		this.repository.save(new Employee("Samwise", "Gamgee", "gardener"));
-		this.repository.save(new Employee("Meriadoc", "Brandybuck", "pony rider"));
-		this.repository.save(new Employee("Peregrin", "Took", "pipe smoker"));
-		*/
 		this.repository.deleteAll();
 		loadFile("players.dat");
 	}
 
 	private void loadFile(String filename) {
-//		List<Person> list = new ArrayList<Person>();
 		try {
 			final FileInputStream fstream = new FileInputStream(filename);
 			final InputStreamReader dis = new InputStreamReader(fstream, "ISO-8859-2");
 			final BufferedReader br = new BufferedReader(dis);
 			String s = br.readLine();
 			while ((s = br.readLine()) != null) {
-				final String[] tk = s.split(",");
+				String[] tk = s.split(",");
 				if (tk.length > 6) {
-					System.out.println("Loaded: " + String.join(" ", tk[0], tk[1], tk[2], tk[3], tk[4], tk[5], tk[6]));
-					Employee p = new Employee(tk[0], tk[1], tk[2], tk[3], tk[4], tk[5], tk[6]);
+					// abayed,Abayateye,Edward,1975-10-06,GHA,Accra,GHA
+					System.out.println("Loaded: " + String.join(", ", tk[0], tk[1], tk[2], tk[3], tk[4], tk[5], tk[6]));
+					Employee p = new Employee(tk[0], tk[1], esc(tk[2]), esc(tk[3]),
+							esc(tk[4]), esc(tk[5]), esc(tk[6]));
 					this.repository.save(p);
 				}
 				else {
@@ -73,6 +67,16 @@ public class DatabaseLoader implements CommandLineRunner {
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	/*
+	  prevent undesired effects of trimming
+	 */
+	private String esc(String t) {
+		if (t==null || t.length()==0 || t.equals(" ")) {
+			return "-";
+		}
+		return t;
 	}
 
 }
