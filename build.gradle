@@ -1,0 +1,50 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.0.BUILD-SNAPSHOT'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
+
+group = 'org.rsfa'
+version = '0.0.1-SNAPSHOT'
+
+description = """Catalog using React and REST"""
+
+jar {
+    baseName = 'catalog'
+    version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+    maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version:'1.4.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'1.4.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version:'1.4.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version:'1.4.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version:'1.4.2.RELEASE'
+    compile group: 'org.projectlombok', name: 'lombok', version:'1.16.10'
+    runtime group: 'com.h2database', name: 'h2', version:'1.4.193'
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.4.2.RELEASE') {
+exclude(module: 'commons-logging')
+    }
+}
